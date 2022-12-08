@@ -9,7 +9,7 @@ export declare type TemplateLocals = Hexo.TemplateLocals;
  * @param hexo
  * @returns
  */
-export declare const hexoIs: (hexo: Hexo | Hexo.View | Hexo.TemplateLocals) => import("./is").HexoIs;
+export declare const hexoIs: (hexo: Hexo | Hexo.View | Hexo.TemplateLocals | Record<string, any>) => import("./is").HexoIs;
 /**
  * Dump variable to file
  * @param toDump

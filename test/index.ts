@@ -3,7 +3,7 @@ process.cwd = () => require("upath").join(__dirname, "demo");
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import Hexo from "hexo";
 import { join } from "upath";
-import hexoIs from "../src";
+import hexoIs from "..";
 import after_render_html from "./after_render_html";
 
 const tmp = join(__dirname, "tmp");

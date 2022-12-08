@@ -3,7 +3,7 @@ process.cwd = () => require("upath").join(__dirname, "demo");
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import Hexo from "hexo";
 import { dirname, join } from "upath";
-import hexoIs from "../src";
+import hexoIs from "..";
 
 const tmp = join(__dirname, "tmp");
 
@@ -32,15 +32,18 @@ export default function after_render_html(
 	logData = Object.assign({}, logData, {
 		data: {
 			path: data["path"] || null,
-			type: data["type"] || null,
+			type: data["type"] || data["page"]?.["type"] || null,
+			url: data["url"] || null,
 			keys: Object.keys(data),
+			page: Object.keys(data["page"] || {}),
 		},
 		hexois: hexoIs(data),
 		content: htmlContent.length,
 	});
 
-	if (!existsSync(dirname(logFile)))
+	if (!existsSync(dirname(logFile))) {
 		mkdirSync(dirname(logFile), { recursive: true });
+	}
 	writeFileSync(logFile, JSON.stringify(logData, null, 2));
 	console.log("log", logFile);
 }

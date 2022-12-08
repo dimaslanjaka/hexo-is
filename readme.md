@@ -6,6 +6,8 @@ this plugin can be used to determine where you are from plugin hexo
 
 # Usage
 
+- full test: https://github.com/dimaslanjaka/hexo-is/tree/master/test
+
 ```js
 const hexoIs = require('hexo-is');
 function where(content, data){

@@ -1,4 +1,5 @@
-import Hexo, { TemplateLocals } from "hexo";
+import Hexo from "hexo";
+export declare type TemplateLocals = Hexo.TemplateLocals;
 /**
  * @example
  * // run inside plugin or theme event
@@ -8,7 +9,7 @@ import Hexo, { TemplateLocals } from "hexo";
  * @param hexo
  * @returns
  */
-export declare const hexoIs: (hexo: Hexo | Hexo.View | TemplateLocals) => import("./is").HexoIs;
+export declare const hexoIs: (hexo: Hexo | Hexo.View | Hexo.TemplateLocals) => import("./is").HexoIs;
 /**
  * Dump variable to file
  * @param toDump

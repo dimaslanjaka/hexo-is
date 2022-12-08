@@ -8,7 +8,8 @@
         "dist",
         "*.ts",
         "*.js",
-        "*.json",
+        "package.json",
+        "LICENSE",
         "*.md"
     ],
     "scripts": {
@@ -44,6 +45,7 @@
         "@types/node": "^18.8.5",
         "cross-spawn": "^7.0.3",
         "gulp": "^4.0.2",
+        "hexo": "^6.3.0",
         "nodejs-package-types": "https://github.com/dimaslanjaka/nodejs-package-types/tarball/main",
         "rimraf": "^3.0.2",
         "ts-node": "^10.4.0",

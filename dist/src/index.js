@@ -48,6 +48,8 @@ var log = (0, hexo_log_1.default)({
  * @returns
  */
 var hexoIs = function (hexo) {
+    if (typeof hexo === "undefined")
+        return;
     if (typeof hexo["page"] != "undefined")
         return (0, is_1.default)(hexo);
     if (typeof hexo["type"] != "undefined") {

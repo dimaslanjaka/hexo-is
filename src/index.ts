@@ -1,6 +1,6 @@
 /* eslint-disable prefer-rest-params */
 import * as fs from "fs";
-import Hexo, { TemplateLocals } from "hexo";
+import Hexo from "hexo";
 import hexoLog from "hexo-log";
 import path from "path";
 import util from "util";
@@ -12,6 +12,8 @@ const log = hexoLog({
 	silent: false,
 });
 
+export type TemplateLocals = Hexo.TemplateLocals;
+
 /**
  * @example
  * // run inside plugin or theme event
@@ -21,7 +23,7 @@ const log = hexoLog({
  * @param hexo
  * @returns
  */
-export const hexoIs = function (hexo: Hexo | Hexo.View | TemplateLocals) {
+export const hexoIs = function (hexo: Hexo | Hexo.View | Hexo.TemplateLocals) {
 	if (typeof hexo === "undefined") return;
 	if (typeof hexo["page"] != "undefined") return is(hexo);
 	if (typeof hexo["type"] != "undefined") {

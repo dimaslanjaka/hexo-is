@@ -1,9 +1,10 @@
 process.cwd = () => require("upath").join(__dirname, "demo");
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 import Hexo from "hexo";
 import { join } from "upath";
 import hexoIs from "../src";
+import after_render_html from "./after_render_html";
 
 const tmp = join(__dirname, "tmp");
 
@@ -32,40 +33,8 @@ hexo.init().then(function () {
 			);
 		}
 	);
-	hexo.extend.filter.register(
-		"after_render:html",
-		function (
-			htmlContent: string,
-			data: Hexo | Hexo.View | Hexo.TemplateLocals
-		) {
-			// User configuration
-			const { config } = this;
-			// Theme configuration
-			const { config: themeCfg } = this.theme;
-
-			let logFile: string | undefined;
-			let logData: Record<string, any> = {};
-			if ("path" in data) {
-				logFile = join(tmp, "after_render_html.json");
-				if (existsSync(logFile)) {
-					logData = JSON.parse(readFileSync(logFile, "utf-8"));
-				}
-			}
-
-			if (typeof logFile === "string") {
-				logData = Object.assign({}, logData, {
-					data: {
-						path: data["path"],
-						type: data["type"],
-					},
-					hexois: hexoIs(data),
-					content: htmlContent,
-				});
-				writeFileSync(logFile, JSON.stringify(logData, null, 2));
-			}
-		},
-		1
-	);
+	hexo.extend.filter.register("after_render:html", after_render_html, 1);
+	hexo.call("clean");
 	hexo.load().then(function () {
 		hexo
 			.call("generate")
@@ -78,6 +47,9 @@ hexo.init().then(function () {
 	});
 });
 
-function _where(_content: any, data: Hexo | Hexo.View | Hexo.TemplateLocals) {
-	console.log(_content, hexoIs(data));
+function _where(
+	htmlContent: any,
+	data: Hexo | Hexo.View | Hexo.TemplateLocals
+) {
+	//console.log(_content, hexoIs(data));
 }

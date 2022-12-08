@@ -1,5 +1,4 @@
-process.cwd = () =>
-	require("upath").toUnix(require("upath").join(__dirname, "demo"));
+process.cwd = () => require("upath").join(__dirname, "demo");
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import Hexo from "hexo";

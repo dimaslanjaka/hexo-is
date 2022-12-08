@@ -1,5 +1,4 @@
-process.cwd = () =>
-	require("upath").toUnix(require("upath").join(__dirname, "demo"));
+process.cwd = () => require("upath").join(__dirname, "demo");
 
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import Hexo from "hexo";
@@ -34,6 +33,7 @@ hexo.init().then(function () {
 			);
 		}
 	);
+
 	hexo.extend.filter.register("after_render:html", after_render_html, 1);
 
 	hexo.load().then(function () {

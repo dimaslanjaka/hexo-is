@@ -6,6 +6,7 @@ import path from "path";
 import util from "util";
 import pkg from "../package.json";
 import is from "./is";
+
 const log = hexoLog({
 	debug: false,
 	silent: false,

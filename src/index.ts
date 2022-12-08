@@ -23,7 +23,9 @@ export type TemplateLocals = Hexo.TemplateLocals;
  * @param hexo
  * @returns
  */
-export const hexoIs = function (hexo: Hexo | Hexo.View | Hexo.TemplateLocals) {
+export const hexoIs = function (
+	hexo: Hexo | Hexo.View | Hexo.TemplateLocals | Record<string, any>
+) {
 	if (typeof hexo === "undefined") return;
 	if (typeof hexo["page"] != "undefined") return is(hexo);
 	if (typeof hexo["type"] != "undefined") {

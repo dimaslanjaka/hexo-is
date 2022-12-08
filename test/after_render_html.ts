@@ -1,4 +1,6 @@
-process.cwd = () => require("upath").toUnix(__dirname);
+process.cwd = () =>
+	require("upath").toUnix(require("upath").join(__dirname, "demo"));
+
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import Hexo from "hexo";
 import { dirname, join } from "upath";
@@ -8,7 +10,7 @@ const tmp = join(__dirname, "tmp");
 
 export default function after_render_html(
 	htmlContent: string,
-	data: Hexo | Hexo.View | Hexo.TemplateLocals
+	data: Hexo | Hexo.View | Hexo.TemplateLocals | Record<string, any>
 ) {
 	// User configuration
 	const { config } = this;

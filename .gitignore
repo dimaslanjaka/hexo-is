@@ -1,4 +1,4 @@
 node_modules
 test/demo
-test/*unit*
+test/public
 tmp

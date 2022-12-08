@@ -1,24 +1,25 @@
 import { copyFileSync, existsSync, readdirSync, readFileSync } from "fs";
 import minimatch from "minimatch";
 import path from "path";
+import f from "./tsconfig.json";
 
 const locts = path.join(__dirname, "tsconfig.json");
 
 if (existsSync(locts)) {
-  const tsconfig = JSON.parse(readFileSync(locts).toString());
-  const outDir = tsconfig.compilerOptions.outDir;
-  const readDir = readdirSync(__dirname).filter((file) => {
-    return matchPatternList(file, tsconfig.include, { matchBase: true });
-  });
+	const tsconfig = JSON.parse(readFileSync(locts).toString()) as typeof f;
+	const outDir = tsconfig.compilerOptions.outDir;
+	const readDir = readdirSync(__dirname).filter((file) => {
+		return matchPatternList(file, tsconfig.include, { matchBase: true });
+	});
 
-  if (existsSync(outDir)) {
-    readDir.forEach((file) => {
-      const toCopy = path.join(__dirname, file);
-      const destCopy = path.resolve(path.join(outDir, file));
-      //console.log(toCopy, destCopy);
-      copyFileSync(toCopy, destCopy);
-    });
-  }
+	if (existsSync(outDir)) {
+		readDir.forEach((file) => {
+			const toCopy = path.join(__dirname, file);
+			const destCopy = path.resolve(path.join(outDir, file));
+			//console.log(toCopy, destCopy);
+			copyFileSync(toCopy, destCopy);
+		});
+	}
 }
 
 /**
@@ -29,7 +30,7 @@ if (existsSync(locts)) {
  * @param options Object - hash of options that will be passed to minimatch()
  */
 function matchPatternList(path, patternList, options) {
-  return patternList.some(function (pattern) {
-    return minimatch(path, pattern, options);
-  });
+	return patternList.some(function (pattern) {
+		return minimatch(path, pattern, options);
+	});
 }

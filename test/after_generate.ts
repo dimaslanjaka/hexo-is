@@ -1,6 +1,6 @@
 /* eslint-disable prefer-rest-params */
-import hexoIs, { hexoIsDump } from "../";
+import hexoIs from "../";
 
 export default function () {
-  hexoIs(this);
+	hexoIs(this);
 }

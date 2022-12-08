@@ -26,16 +26,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hexoIsDump = void 0;
-var hexo_log_1 = __importDefault(require("hexo-log"));
-var package_json_1 = __importDefault(require("./package.json"));
+exports.hexoIsDump = exports.hexoIs = void 0;
+/* eslint-disable prefer-rest-params */
 var fs = __importStar(require("fs"));
-var util_1 = __importDefault(require("util"));
+var hexo_log_1 = __importDefault(require("hexo-log"));
 var path_1 = __importDefault(require("path"));
+var util_1 = __importDefault(require("util"));
+var package_json_1 = __importDefault(require("../package.json"));
 var is_1 = __importDefault(require("./is"));
 var log = (0, hexo_log_1.default)({
     debug: false,
-    silent: false
+    silent: false,
 });
 /**
  * @example
@@ -56,6 +57,7 @@ var hexoIs = function (hexo) {
         return ix;
     }
 };
+exports.hexoIs = hexoIs;
 /**
  * Dump variable to file
  * @param toDump
@@ -73,4 +75,4 @@ function hexoIsDump(toDump, name) {
     log.log("".concat(package_json_1.default.name, ": dump saved to: ").concat(path_1.default.resolve(loc)));
 }
 exports.hexoIsDump = hexoIsDump;
-exports.default = hexoIs;
+exports.default = exports.hexoIs;

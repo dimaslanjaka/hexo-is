@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES5",
+        "rootDir": "./",
+        "outDir": "./dist",
+        "declaration": true,
+        "declarationDir": "./dist",
+        "removeComments": false,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "**/node_modules/**",
+        "tmp"
+    ],
+    "include": [
+        "src",
+        "*.json",
+        "*.md"
+    ]
+}

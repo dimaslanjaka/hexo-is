@@ -2,17 +2,19 @@
     "name": "hexo-is",
     "version": "1.0.4",
     "description": "Determine whether hexo is",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
     "files": [
         "dist",
         "*.ts",
         "*.js",
+        "*.json",
         "*.md"
     ],
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc && npm run hook",
+        "prebuild": "rimraf dist",
+        "build": "tsc",
         "hook": "ts-node hook.ts",
         "postbuild": "node packer.js",
         "postinstall": "node postinstall.js"
@@ -43,6 +45,7 @@
         "cross-spawn": "^7.0.3",
         "gulp": "^4.0.2",
         "nodejs-package-types": "https://github.com/dimaslanjaka/nodejs-package-types/tarball/main",
+        "rimraf": "^3.0.2",
         "ts-node": "^10.4.0",
         "typescript": "^4.4.4"
     }

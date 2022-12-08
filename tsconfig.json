@@ -17,7 +17,8 @@
     "tmp"
   ],
   "include": [
-    "*.ts",
+    "src",
+    "*.json",
     "*.md"
   ]
 }

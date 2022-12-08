@@ -5,6 +5,7 @@
     "rootDir": "./",
     "outDir": "./dist",
     "declaration": true,
+    "declarationDir": "./dist",
     "removeComments": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,

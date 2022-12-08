@@ -22,6 +22,7 @@ const log = hexoLog({
  * @returns
  */
 export const hexoIs = function (hexo: Hexo | Hexo.View | TemplateLocals) {
+	if (typeof hexo === "undefined") return;
 	if (typeof hexo["page"] != "undefined") return is(hexo);
 	if (typeof hexo["type"] != "undefined") {
 		const ix = is(hexo);

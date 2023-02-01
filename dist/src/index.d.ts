@@ -1,5 +1,5 @@
 import Hexo from "hexo";
-export declare type TemplateLocals = Hexo.TemplateLocals;
+export type TemplateLocals = Hexo.TemplateLocals;
 /**
  * @example
  * // run inside plugin or theme event

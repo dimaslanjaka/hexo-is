@@ -1,19 +1,34 @@
 'use strict';
 
-var require$$0 = require('fs');
-var require$$1 = require('hexo-log');
-var require$$2 = require('path');
-var require$$3 = require('util');
+Object.defineProperty(exports, '__esModule', { value: true });
 
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+var fs = require('fs');
+var hexoLog = require('hexo-log');
+var path = require('path');
+var util = require('util');
+
+function _interopNamespaceDefault(e) {
+    var n = Object.create(null);
+    if (e) {
+        Object.keys(e).forEach(function (k) {
+            if (k !== 'default') {
+                var d = Object.getOwnPropertyDescriptor(e, k);
+                Object.defineProperty(n, k, d.get ? d : {
+                    enumerable: true,
+                    get: function () { return e[k]; }
+                });
+            }
+        });
+    }
+    n.default = e;
+    return Object.freeze(n);
 }
 
-var src = {};
+var fs__namespace = /*#__PURE__*/_interopNamespaceDefault(fs);
 
 var name = "hexo-is";
-var version = "2.0.0";
-var description = "Determine whether hexo is";
+var version = "2.0.1";
+var description = "Determine whether current hexo data is";
 var main = "dist/index.js";
 var types = "dist/index.d.ts";
 var type = "module";
@@ -22,7 +37,7 @@ var exports$1 = {
 	".": {
 		require: {
 			"default": "./dist/index.cjs",
-			types: "./dist/index.d.ts"
+			types: "./dist/index.d.cts"
 		},
 		"import": {
 			"default": "./dist/index.mjs",
@@ -67,9 +82,14 @@ var dependencies = {
 	upath: "^2.0.1"
 };
 var devDependencies = {
+	"@babel/core": "^7.26.0",
+	"@babel/preset-env": "^7.26.0",
+	"@rollup/plugin-babel": "^6.0.4",
 	"@rollup/plugin-commonjs": "^28.0.1",
 	"@rollup/plugin-json": "^6.1.0",
 	"@rollup/plugin-node-resolve": "^15.3.0",
+	"@types/babel__core": "^7",
+	"@types/babel__preset-env": "^7",
 	"@types/gulp": "^4.0.17",
 	"@types/node": "^22.8.4",
 	"cross-spawn": "https://github.com/dimaslanjaka/node-cross-spawn/raw/private/release/cross-spawn.tgz",
@@ -113,7 +133,7 @@ var resolutions = {
 	warehouse: "https://github.com/dimaslanjaka/hexo/raw/monorepo-v7/releases/warehouse.tgz"
 };
 var packageManager = "yarn@4.5.1";
-var require$$4 = {
+var pkg = {
 	name: name,
 	version: version,
 	description: description,
@@ -136,236 +156,170 @@ var require$$4 = {
 	packageManager: packageManager
 };
 
-var is = {};
-
 /* eslint-disable @typescript-eslint/no-this-alias */
+// source of https://github.com/hexojs/hexo/blob/master/lib/plugins/helper/is.js
 
-var hasRequiredIs;
-
-function requireIs () {
-	if (hasRequiredIs) return is;
-	hasRequiredIs = 1;
-	(function (exports) {
-		Object.defineProperty(exports, "__esModule", { value: true });
-		exports.tag = exports.category = exports.month = exports.year = exports.archive = exports.page = exports.post = exports.home = exports.current = void 0;
-		exports.default = internalIs;
-		function isCurrentHelper(path, strict) {
-		    if (path === void 0) { path = "/"; }
-		    var currentPath = this.path.replace(/^[^/].*/, "/$&");
-		    if (strict) {
-		        if (path.endsWith("/"))
-		            path += "index.html";
-		        path = path.replace(/^[^/].*/, "/$&");
-		        return currentPath === path;
-		    }
-		    path = path.replace(/\/index\.html$/, "/");
-		    if (path === "/")
-		        return currentPath === "/index.html";
-		    path = path.replace(/^[^/].*/, "/$&");
-		    return currentPath.startsWith(path);
-		}
-		function isHomeHelper() {
-		    return Boolean(this.page.__index);
-		}
-		function isPostHelper() {
-		    if (this.page) {
-		        var src = this.page["full_source"] || "";
-		        var layout = this.page.layout || "";
-		        if (layout.startsWith("post"))
-		            return true;
-		        if (layout.startsWith("page"))
-		            return false;
-		        if (src !== "") {
-		            return Boolean(this.page.__post) && src.includes("_posts");
-		        }
-		    }
-		    return Boolean(this.page.__post);
-		}
-		function isPageHelper() {
-		    if (this.page) {
-		        var src = this.page["full_source"] || "";
-		        var layout = this.page.layout || "";
-		        if (layout.startsWith("post"))
-		            return false;
-		        if (layout.startsWith("page"))
-		            return true;
-		        if (src !== "") {
-		            return Boolean(this.page.__post) && !src.includes("_posts");
-		        }
-		    }
-		    return Boolean(this.page.__page);
-		}
-		function isArchiveHelper() {
-		    return Boolean(this.page.archive);
-		}
-		function isYearHelper(year) {
-		    var page = this.page;
-		    if (!page.archive)
-		        return false;
-		    if (year) {
-		        return page.year === year;
-		    }
-		    return Boolean(page.year);
-		}
-		function isMonthHelper(year, month) {
-		    var page = this.page;
-		    if (!page.archive)
-		        return false;
-		    if (year) {
-		        if (month) {
-		            return page.year === year && page.month === month;
-		        }
-		        return page.month === year;
-		    }
-		    return Boolean(page.year && page.month);
-		}
-		function isCategoryHelper(category) {
-		    if (category) {
-		        return this.page.category === category;
-		    }
-		    return Boolean(this.page.category);
-		}
-		function isTagHelper(tag) {
-		    if (tag) {
-		        return this.page.tag === tag;
-		    }
-		    return Boolean(this.page.tag);
-		}
-		exports.current = isCurrentHelper;
-		exports.home = isHomeHelper;
-		exports.post = isPostHelper;
-		exports.page = isPageHelper;
-		exports.archive = isArchiveHelper;
-		exports.year = isYearHelper;
-		exports.month = isMonthHelper;
-		exports.category = isCategoryHelper;
-		exports.tag = isTagHelper;
-		/**
-		 * Custom function
-		 * @param hexo
-		 * @returns
-		 */
-		function internalIs(hexo) {
-		    var obj = {
-		        current: false,
-		        home: false,
-		        post: false,
-		        page: false,
-		        archive: false,
-		        year: false,
-		        month: false,
-		        category: false,
-		        tag: false,
-		        message: "try using second argument",
-		    };
-		    if (typeof hexo["page"] == "undefined")
-		        return obj;
-		    return {
-		        current: exports.current.bind(hexo)(),
-		        home: exports.home.bind(hexo)(),
-		        post: exports.post.bind(hexo)(),
-		        page: exports.page.bind(hexo)(),
-		        archive: exports.archive.bind(hexo)(),
-		        year: exports.year.bind(hexo)(),
-		        month: exports.month.bind(hexo)(),
-		        category: exports.category.bind(hexo)(),
-		        tag: exports.tag.bind(hexo)(),
-		    };
-		} 
-	} (is));
-	return is;
+function isCurrentHelper(path = "/", strict) {
+  const currentPath = this.path.replace(/^[^/].*/, "/$&");
+  if (strict) {
+    if (path.endsWith("/")) path += "index.html";
+    path = path.replace(/^[^/].*/, "/$&");
+    return currentPath === path;
+  }
+  path = path.replace(/\/index\.html$/, "/");
+  if (path === "/") return currentPath === "/index.html";
+  path = path.replace(/^[^/].*/, "/$&");
+  return currentPath.startsWith(path);
+}
+function isHomeHelper() {
+  return Boolean(this.page.__index);
+}
+function isPostHelper() {
+  if (this.page) {
+    const src = this.page["full_source"] || "";
+    const layout = this.page.layout || "";
+    if (layout.startsWith("post")) return true;
+    if (layout.startsWith("page")) return false;
+    if (src !== "") {
+      return Boolean(this.page.__post) && src.includes("_posts");
+    }
+  }
+  return Boolean(this.page.__post);
+}
+function isPageHelper() {
+  if (this.page) {
+    const src = this.page["full_source"] || "";
+    const layout = this.page.layout || "";
+    if (layout.startsWith("post")) return false;
+    if (layout.startsWith("page")) return true;
+    if (src !== "") {
+      return Boolean(this.page.__post) && !src.includes("_posts");
+    }
+  }
+  return Boolean(this.page.__page);
+}
+function isArchiveHelper() {
+  return Boolean(this.page.archive);
+}
+function isYearHelper(year) {
+  const {
+    page
+  } = this;
+  if (!page.archive) return false;
+  if (year) {
+    return page.year === year;
+  }
+  return Boolean(page.year);
+}
+function isMonthHelper(year, month) {
+  const {
+    page
+  } = this;
+  if (!page.archive) return false;
+  if (year) {
+    if (month) {
+      return page.year === year && page.month === month;
+    }
+    return page.month === year;
+  }
+  return Boolean(page.year && page.month);
+}
+function isCategoryHelper(category) {
+  if (category) {
+    return this.page.category === category;
+  }
+  return Boolean(this.page.category);
+}
+function isTagHelper(tag) {
+  if (tag) {
+    return this.page.tag === tag;
+  }
+  return Boolean(this.page.tag);
+}
+const current = isCurrentHelper;
+const home = isHomeHelper;
+const post = isPostHelper;
+const page = isPageHelper;
+const archive = isArchiveHelper;
+const year = isYearHelper;
+const month = isMonthHelper;
+const category = isCategoryHelper;
+const tag = isTagHelper;
+/**
+ * Custom function
+ * @param hexo
+ * @returns
+ */
+function internalIs(hexo) {
+  const obj = {
+    current: false,
+    home: false,
+    post: false,
+    page: false,
+    archive: false,
+    year: false,
+    month: false,
+    category: false,
+    tag: false,
+    message: "try using second argument"
+  };
+  if (typeof hexo["page"] == "undefined") return obj;
+  return {
+    current: current.bind(hexo)(),
+    home: home.bind(hexo)(),
+    post: post.bind(hexo)(),
+    page: page.bind(hexo)(),
+    archive: archive.bind(hexo)(),
+    year: year.bind(hexo)(),
+    month: month.bind(hexo)(),
+    category: category.bind(hexo)(),
+    tag: tag.bind(hexo)()
+  };
 }
 
-var hasRequiredSrc;
-
-function requireSrc () {
-	if (hasRequiredSrc) return src;
-	hasRequiredSrc = 1;
-	(function (exports) {
-		var __createBinding = (src && src.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    var desc = Object.getOwnPropertyDescriptor(m, k);
-		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-		      desc = { enumerable: true, get: function() { return m[k]; } };
-		    }
-		    Object.defineProperty(o, k2, desc);
-		}) : (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    o[k2] = m[k];
-		}));
-		var __setModuleDefault = (src && src.__setModuleDefault) || (Object.create ? (function(o, v) {
-		    Object.defineProperty(o, "default", { enumerable: true, value: v });
-		}) : function(o, v) {
-		    o["default"] = v;
-		});
-		var __importStar = (src && src.__importStar) || function (mod) {
-		    if (mod && mod.__esModule) return mod;
-		    var result = {};
-		    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-		    __setModuleDefault(result, mod);
-		    return result;
-		};
-		var __importDefault = (src && src.__importDefault) || function (mod) {
-		    return (mod && mod.__esModule) ? mod : { "default": mod };
-		};
-		Object.defineProperty(exports, "__esModule", { value: true });
-		exports.hexoIs = void 0;
-		exports.hexoIsDump = hexoIsDump;
-		/* eslint-disable prefer-rest-params */
-		var fs = __importStar(require$$0);
-		var hexo_log_1 = __importDefault(require$$1);
-		var path_1 = __importDefault(require$$2);
-		var util_1 = __importDefault(require$$3);
-		var package_json_1 = __importDefault(require$$4);
-		var is_1 = __importDefault(requireIs());
-		var log = (0, hexo_log_1.default)({
-		    debug: false,
-		    silent: false,
-		});
-		/**
-		 * @example
-		 * // run inside plugin or theme event
-		 * import hexoIs from 'hexo-is';
-		 * const hexo = this;
-		 * console.log(hexoIs(hexo)); // object or string
-		 * @param hexo
-		 * @returns
-		 */
-		var hexoIs = function (hexo) {
-		    if (typeof hexo === "undefined")
-		        return;
-		    if (typeof hexo["page"] != "undefined")
-		        return (0, is_1.default)(hexo);
-		    if (typeof hexo["type"] != "undefined") {
-		        var ix = (0, is_1.default)(hexo);
-		        if (typeof ix[hexo["type"]] != "undefined")
-		            ix[hexo["type"]] = true;
-		        return ix;
-		    }
-		};
-		exports.hexoIs = hexoIs;
-		/**
-		 * Dump variable to file
-		 * @param toDump
-		 */
-		function hexoIsDump(toDump, name) {
-		    if (name === void 0) { name = ""; }
-		    if (name.length > 0)
-		        name = "-" + name;
-		    var dump = util_1.default.inspect(toDump, { showHidden: true, depth: null });
-		    var loc = path_1.default.join("tmp/hexo-is/dump" + name + ".txt");
-		    if (!fs.existsSync(path_1.default.dirname(loc))) {
-		        fs.mkdirSync(path_1.default.dirname(loc), { recursive: true });
-		    }
-		    fs.writeFileSync(loc, dump);
-		    log.log("".concat(package_json_1.default.name, ": dump saved to: ").concat(path_1.default.resolve(loc)));
-		}
-		exports.default = exports.hexoIs; 
-	} (src));
-	return src;
+/* eslint-disable prefer-rest-params */
+const log = typeof hexo !== "undefined" ? hexo.log : hexoLog.logger({
+  debug: false,
+  silent: false
+});
+/**
+ * @example
+ * // run inside plugin or theme event
+ * import hexoIs from 'hexo-is';
+ * const hexo = this;
+ * console.log(hexoIs(hexo)); // object or string
+ * @param hexo
+ * @returns
+ */
+const hexoIs = function (hexo) {
+  if (typeof hexo === "undefined") return;
+  if (typeof hexo["page"] != "undefined") return internalIs(hexo);
+  if (typeof hexo["type"] != "undefined") {
+    const ix = internalIs(hexo);
+    if (typeof ix[hexo["type"]] != "undefined") ix[hexo["type"]] = true;
+    return ix;
+  }
+};
+/**
+ * Dump variable to file
+ * @param toDump
+ */
+function hexoIsDump(toDump, name = "") {
+  if (name.length > 0) name = "-" + name;
+  const dump = util.inspect(toDump, {
+    showHidden: true,
+    depth: null
+  });
+  const loc = path.join("tmp/hexo-is/dump" + name + ".txt");
+  if (!fs__namespace.existsSync(path.dirname(loc))) {
+    fs__namespace.mkdirSync(path.dirname(loc), {
+      recursive: true
+    });
+  }
+  fs__namespace.writeFileSync(loc, dump);
+  log.log(`${pkg.name}: dump saved to: ${path.resolve(loc)}`);
 }
 
-var srcExports = requireSrc();
-var index = /*@__PURE__*/getDefaultExportFromCjs(srcExports);
-
-module.exports = index;
+exports.default = hexoIs;
+exports.hexoIs = hexoIs;
+exports.hexoIsDump = hexoIsDump;

@@ -1,3 +1,4 @@
+import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
@@ -18,15 +19,20 @@ const declaration = {
 	plugins: [dts()],
 };
 
-const script = {
+const fromDist = {
 	input: "./tmp/dist/src/index.js",
 	output: [
 		{ file: "dist/index.js", format: "esm" },
 		{ file: "dist/index.cjs", format: "cjs" },
 		{ file: "dist/index.mjs", format: "esm" },
 	],
-	plugins: [json(), resolve({ preferBuiltins: true }), commonjs()],
+	plugins: [
+		json(),
+		resolve({ preferBuiltins: true }),
+		commonjs(),
+		babel({ babelHelpers: "bundled", exclude: "node_modules/**" }),
+	],
 	external,
 };
 
-export default [declaration, script];
+export default [declaration, fromDist];

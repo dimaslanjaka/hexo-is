@@ -1,17 +1,20 @@
 /* eslint-disable prefer-rest-params */
 import * as fs from "fs";
 import Hexo from "hexo";
-import hexoLog from "hexo-log";
+import { logger } from "hexo-log";
 import { HexoLocalsData } from "hexo/dist/hexo/locals-d";
 import path from "path";
 import util from "util";
 import pkg from "../package.json";
 import internalis from "./is";
 
-const log = hexoLog({
-	debug: false,
-	silent: false,
-});
+const log =
+	typeof hexo !== "undefined"
+		? hexo.log
+		: logger({
+				debug: false,
+				silent: false,
+		  });
 
 /**
  * @example

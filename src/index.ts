@@ -2,17 +2,16 @@
 import * as fs from "fs";
 import Hexo from "hexo";
 import hexoLog from "hexo-log";
+import { HexoLocalsData } from "hexo/dist/hexo/locals-d";
 import path from "path";
 import util from "util";
 import pkg from "../package.json";
-import is from "./is";
+import internalis from "./is";
 
 const log = hexoLog({
 	debug: false,
 	silent: false,
 });
-
-export type TemplateLocals = Hexo.TemplateLocals;
 
 /**
  * @example
@@ -23,13 +22,11 @@ export type TemplateLocals = Hexo.TemplateLocals;
  * @param hexo
  * @returns
  */
-export const hexoIs = function (
-	hexo: Hexo | Hexo.View | Hexo.TemplateLocals | Record<string, any>
-) {
+export const hexoIs = function (hexo: Hexo | HexoLocalsData) {
 	if (typeof hexo === "undefined") return;
-	if (typeof hexo["page"] != "undefined") return is(hexo);
+	if (typeof hexo["page"] != "undefined") return internalis(hexo);
 	if (typeof hexo["type"] != "undefined") {
-		const ix = is(hexo);
+		const ix = internalis(hexo);
 		if (typeof ix[hexo["type"]] != "undefined") ix[hexo["type"]] = true;
 		return ix;
 	}

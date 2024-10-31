@@ -1,4 +1,7 @@
-node_modules
-test/demo
-test/public
-tmp
+**/node_modules
+**/tmp
+**/yarn.lock
+**/package-lock*
+**/.yarn/cache
+**/.yarn/*.gz
+**/.yarn/versions

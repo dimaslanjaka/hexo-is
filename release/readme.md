@@ -1,6 +1,24 @@
-# Release `hexo-is` Tarball
+# Release `hexo-is` tarball
+## Releases
+| version | tarball url |
+| :--- | :--- |
+| 1.0.4 | https://github.com/dimaslanjaka/hexo-is/raw/6c39e7d/release/hexo-is-1.0.4.tgz |
+| 1.0.5 | https://github.com/dimaslanjaka/hexo-is/raw/be69f8d/release/hexo-is-1.0.5.tgz |
+| latest | https://github.com/dimaslanjaka/hexo-is/raw/be69f8d/release/hexo-is.tgz |
+| latest | https://github.com/dimaslanjaka/hexo-is/raw/master/release/hexo-is.tgz |
 
-## Get URL of `hexo-is` Release Tarball
+use this tarball with `resolutions`:
+```json
+{
+  "resolutions": {
+    "hexo-is": "<url of tarball>"
+  }
+}
+```
+
+## Releases
+
+    ## Get URL of `hexo-is` Release Tarball
 - select tarball file
 ![gambar](https://user-images.githubusercontent.com/12471057/203216375-8af4b5d9-00c2-40fb-8d3d-d220beaabd46.png)
 - copy raw url
@@ -13,7 +31,7 @@ npm i https://....url-tgz
 ```
 for example
 ```bash
-npm i https://github.com/dimaslanjaka/static-blog-generator-hexo/raw/master/packages/gulp-sbg/release/static-blog-generator.tgz
+npm i https://github.com/dimaslanjaka/nodejs-package-types/raw/main/release/nodejs-package-types.tgz
 ```
 
 ## URL Parts Explanations

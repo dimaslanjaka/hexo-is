@@ -9,6 +9,9 @@ const external = Object.keys(packageJson.dependencies)
 	.concat(packageJson.devDependencies)
 	.flat();
 
+/**
+ * @type {import("rollup").RollupOptions}
+ */
 const declaration = {
 	input: "./tmp/dist/src/index.d.ts",
 	output: [
@@ -19,6 +22,9 @@ const declaration = {
 	plugins: [dts()],
 };
 
+/**
+ * @type {import("rollup").RollupOptions}
+ */
 const fromDist = {
 	input: "./tmp/dist/src/index.js",
 	output: [

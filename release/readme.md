@@ -5,7 +5,8 @@
 | 1.0.4 | https://github.com/dimaslanjaka/hexo-is/raw/6c39e7d/release/hexo-is-1.0.4.tgz |
 | 1.0.5 | https://github.com/dimaslanjaka/hexo-is/raw/be69f8d/release/hexo-is-1.0.5.tgz |
 | 2.0.0 | https://github.com/dimaslanjaka/hexo-is/raw/d7dfef5/release/hexo-is-2.0.0.tgz |
-| latest | https://github.com/dimaslanjaka/hexo-is/raw/d7dfef5/release/hexo-is.tgz |
+| 2.0.1 | https://github.com/dimaslanjaka/hexo-is/raw/8c5c917/release/hexo-is-2.0.1.tgz |
+| latest | https://github.com/dimaslanjaka/hexo-is/raw/8c5c917/release/hexo-is.tgz |
 | latest | https://github.com/dimaslanjaka/hexo-is/raw/master/release/hexo-is.tgz |
 
 use this tarball with `resolutions`:

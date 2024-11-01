@@ -5,3 +5,4 @@
 **/.yarn/cache
 **/.yarn/*.gz
 **/.yarn/versions
+**/package.tgz

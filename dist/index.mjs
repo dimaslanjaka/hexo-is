@@ -4,7 +4,7 @@ import path from 'path';
 import util from 'util';
 
 var name = "hexo-is";
-var version = "2.0.1";
+var version = "2.0.2";
 var description = "Determine whether current hexo data is";
 var main = "dist/index.js";
 var types = "dist/index.d.ts";
@@ -26,10 +26,9 @@ var files = [
 	"dist/"
 ];
 var scripts = {
-	test: "echo \"Error: no test specified\" && exit 1",
+	test: "node test/index.js",
 	build: "tsc && rollup -c",
 	clean: "rimraf dist && npm run build",
-	hook: "ts-node hook.ts",
 	postbuild: "node packer.js",
 	update: "npx npm-check-updates -u -x chalk",
 	pack: "node packer.cjs --yarn"
@@ -38,9 +37,9 @@ var keywords = [
 ];
 var repository = {
 	type: "git",
-	url: "https://github.com/dimaslanjaka/hexo-is.git"
+	url: "https://github.com/dimaslanjaka/hexo-is"
 };
-var homepage = "https://github.com/dimaslanjaka/hexo-seo/tree/master/packages/hexo-is#readme";
+var homepage = "https://github.com/dimaslanjaka/hexo-is";
 var author = {
 	email: "dimaslanjaka@gmail.com",
 	name: "Dimas Lanjaka",
@@ -93,9 +92,9 @@ var resolutions = {
 	"hexo-front-matter": "https://github.com/dimaslanjaka/hexo/raw/monorepo-v7/releases/hexo-front-matter.tgz",
 	"hexo-generator-redirect": "https://github.com/dimaslanjaka/hexo-generator-redirect/raw/0885394/release/hexo-generator-redirect.tgz",
 	"hexo-log": "https://github.com/dimaslanjaka/hexo/raw/monorepo-v7/releases/hexo-log.tgz",
-	"hexo-post-parser": "https://github.com/dimaslanjaka/hexo-post-parser/raw/8c4e98159e4407b77e1c25e028c1fd4a0073a8e3/release/hexo-post-parser.tgz",
-	"hexo-renderers": "https://github.com/dimaslanjaka/hexo-renderers/raw/add4a2491075dd85281a5dc0c48b74a7ce51d987/release/hexo-renderers.tgz",
-	"hexo-seo": "https://github.com/dimaslanjaka/hexo-seo/raw/f4cf27fbc7de2b831462d3b26cf70ece2499d15b/release/hexo-seo.tgz",
+	"hexo-post-parser": "https://github.com/dimaslanjaka/hexo-post-parser/raw/d9f3a9ba3585188dfb30159ff588b709f0238326/release/hexo-post-parser.tgz",
+	"hexo-renderers": "https://github.com/dimaslanjaka/hexo-renderers/raw/0534154ea2bbc4a06fe347861e8ebfc7a722c10f/release/hexo-renderers.tgz",
+	"hexo-seo": "https://github.com/dimaslanjaka/hexo-seo/raw/7729b4246934d7319c4bcacbbe01a3748b5f5056/release/hexo-seo.tgz",
 	"hexo-server": "https://github.com/dimaslanjaka/hexo/raw/monorepo-v7/releases/hexo-server.tgz",
 	"hexo-shortcodes": "https://github.com/dimaslanjaka/hexo-shortcodes/raw/f70a1c0/release/hexo-shortcodes.tgz",
 	"hexo-util": "https://github.com/dimaslanjaka/hexo/raw/monorepo-v7/releases/hexo-util.tgz",

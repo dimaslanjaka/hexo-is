@@ -7,6 +7,7 @@ import path from "path";
 import util from "util";
 import pkg from "../package.json";
 import internalis from "./is";
+import { TemplateLocals } from "./types";
 
 const log =
 	typeof hexo !== "undefined"
@@ -25,7 +26,7 @@ const log =
  * @param hexo
  * @returns
  */
-export const hexoIs = function (hexo: Hexo | HexoLocalsData) {
+export const hexoIs = function (hexo: Hexo | HexoLocalsData | TemplateLocals) {
 	if (typeof hexo === "undefined") return;
 	if (typeof hexo["page"] != "undefined") return internalis(hexo);
 	if (typeof hexo["type"] != "undefined") {

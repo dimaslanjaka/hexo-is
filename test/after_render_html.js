@@ -16,7 +16,9 @@ export default function after_render_html(content, data) {
   // Theme configuration
   // const { config: themeCfg } = this.theme;
 
-  let logFile = upath.join(tmp, 'after_render_html.json');
+  // eslint-disable-next-line no-control-regex
+  const uniqueId = (data.page.path || '').replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+  let logFile = upath.join(tmp, uniqueId, 'after_render_html.json');
   let logData = {};
   if ('path' in data) {
     logFile = upath.join(tmp, 'after_render_html', data.path.replace(/.html$/gi, '.json'));

@@ -3,15 +3,14 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import { dts } from 'rollup-plugin-dts';
-import packageJson from './package.json' assert { type: 'json' };
+import packageJson from './package.json' with { type: 'json' };
 
 // Packages that should be bundled
 const bundledPackages = ['p-limit', 'deepmerge-ts', 'hexo-is', 'is-stream', 'markdown-it', 'node-cache'];
 
 // List external dependencies, excluding specific packages that should be bundled
 const external = Object.keys(packageJson.dependencies)
-  .concat(packageJson.devDependencies)
-  .flat()
+  .concat(Object.keys(packageJson.devDependencies))
   .filter((pkgName) => !bundledPackages.includes(pkgName));
 
 /**

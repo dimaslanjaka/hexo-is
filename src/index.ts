@@ -28,9 +28,9 @@ const log =
  */
 export const hexoIs = function (hexo: Hexo | HexoLocalsData | TemplateLocals) {
 	if (typeof hexo === "undefined") return;
-	if (typeof hexo["page"] != "undefined") return internalis(hexo);
+	if (typeof hexo["page"] != "undefined") return internalis(hexo as any);
 	if (typeof hexo["type"] != "undefined") {
-		const ix = internalis(hexo);
+		const ix = internalis(hexo as any);
 		if (typeof ix[hexo["type"]] != "undefined") ix[hexo["type"]] = true;
 		return ix;
 	}

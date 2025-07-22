@@ -2,13 +2,11 @@ name: Cross-Platform Tests
 
 on:
   push:
-    branches: [ pre-release ]
     paths:
       - 'src/**'
       - 'test/**'
       - 'package.json'
   pull_request:
-    branches: [ pre-release ]
     paths:
       - 'src/**'
       - 'test/**'

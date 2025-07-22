@@ -8,7 +8,7 @@ describe('hexoIs', () => {
   });
 
   it('should call internalis if hexo.page is defined', () => {
-    const fakeHexo = { page: {} };
+    const fakeHexo = { page: { path: '/', title: 'test page' } };
     const result = hexoIs(fakeHexo as any);
     expect(result).toBeDefined();
   });

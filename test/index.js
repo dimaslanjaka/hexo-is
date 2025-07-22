@@ -11,15 +11,21 @@ const hexo = new Hexo(upath.join(__dirname, 'demo'), { debug: false, silent: tru
 // hexo.extend.filter: https://hexo.io/api/filter
 
 hexo.extend.filter.register('after_render:js', (content, data) => {
-  // eslint-disable-next-line no-control-regex
-  const uniqueId = (data.page.path || '').replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+  const uniqueId = String(data.page.path || data.page.full_source || data.full_source).replace(
+    // eslint-disable-next-line no-control-regex
+    /[<>:"/\\|?*\x00-\x1F]/g,
+    '_'
+  );
   fs.writeFileSync(upath.join(tmp, uniqueId, 'after_render_js.json'), JSON.stringify(hexoIs(data)));
   return content;
 });
 
 hexo.extend.filter.register('after_render:css', (content, data) => {
-  // eslint-disable-next-line no-control-regex
-  const uniqueId = (data.page.path || '').replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+  const uniqueId = String(data.page.path || data.page.full_source || data.full_source).replace(
+    // eslint-disable-next-line no-control-regex
+    /[<>:"/\\|?*\x00-\x1F]/g,
+    '_'
+  );
   fs.writeFileSync(upath.join(tmp, uniqueId, 'after_render_css.json'), JSON.stringify(hexoIs(data)));
   return content;
 });

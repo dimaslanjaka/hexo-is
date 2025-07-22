@@ -28,7 +28,8 @@
     "clean": "npx rimraf dist && npm run build",
     "postbuild": "node packer.js",
     "update": "npx npm-check-updates -u -x chalk",
-    "pack": "node packer.cjs --yarn"
+    "pack": "node packer.cjs --yarn",
+    "prepare": "husky"
   },
   "keywords": [],
   "repository": {
@@ -78,9 +79,11 @@
     "gulp": "^5.0.1",
     "gulp-cli": "^3.1.0",
     "hexo": "^7.3.0",
+    "husky": "^9.1.7",
     "jest": "^30.0.5",
     "jest-config": "^30.0.5",
     "jest-mock": "^30.0.5",
+    "lint-staged": "^16.1.2",
     "nodemon": "^3.1.10",
     "rimraf": "^6.0.1",
     "rollup": "^4.45.1",

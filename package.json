@@ -69,6 +69,7 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
+    "@types/fs-extra": "^11.0.4",
     "@types/gulp": "^4.0.17",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.15",

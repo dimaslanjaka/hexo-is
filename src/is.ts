@@ -3,24 +3,24 @@ import { TemplateLocals } from './types';
 
 type Page = Record<string, any>;
 
-function isCurrentHelper(this: any, path = '/', strict?: boolean): boolean {
+function isCurrentHelper(this: TemplateLocals, postPath = '/', strict?: boolean): boolean {
   const currentPath = this.path.replace(/^[^/].*/, '/$&');
   if (strict) {
-    if (path.endsWith('/')) path += 'index.html';
-    path = path.replace(/^[^/].*/, '/$&');
-    return currentPath === path;
+    if (postPath.endsWith('/')) postPath += 'index.html';
+    postPath = postPath.replace(/^[^/].*/, '/$&');
+    return currentPath === postPath;
   }
-  path = path.replace(/\/index\.html$/, '/');
-  if (path === '/') return currentPath === '/index.html';
-  path = path.replace(/^[^/].*/, '/$&');
-  return currentPath.startsWith(path);
+  postPath = postPath.replace(/\/index\.html$/, '/');
+  if (postPath === '/') return currentPath === '/index.html';
+  postPath = postPath.replace(/^[^/].*/, '/$&');
+  return currentPath.startsWith(postPath);
 }
 
-function isHomeHelper(this: any): boolean {
+function isHomeHelper(this: TemplateLocals): boolean {
   return Boolean(this.page?.__index);
 }
 
-function isPostHelper(this: any): boolean {
+function isPostHelper(this: TemplateLocals): boolean {
   const page: Page = this.page || {};
   const src = page.full_source || '';
   const layout = page.layout || '';
@@ -30,7 +30,7 @@ function isPostHelper(this: any): boolean {
   return Boolean(page.__post);
 }
 
-function isPageHelper(this: any): boolean {
+function isPageHelper(this: TemplateLocals): boolean {
   const page: Page = this.page || {};
   const src = page.full_source || '';
   const layout = page.layout || '';
@@ -40,7 +40,7 @@ function isPageHelper(this: any): boolean {
   return Boolean(page.__page);
 }
 
-function isArchiveHelper(this: any): boolean {
+function isArchiveHelper(this: TemplateLocals): boolean {
   return Boolean(this.page?.archive);
 }
 

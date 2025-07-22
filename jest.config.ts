@@ -14,24 +14,15 @@ const config: JestConfigWithTsJest = {
   verbose: true,
   cache: true,
   cacheDirectory: path.join(__dirname, 'tmp/jest'),
-  collectCoverageFrom: [
-    'src/*.{js,ts}',
-    '!**/node_modules/**',
-    '!**/vendor/**',
-    '!**/test/**',
-    '!**/*.test.{js,ts}',
-    '!**/*.builder.ts',
-    '!**/.deploy_git/**'
-  ],
+  collectCoverageFrom: ['src/**/*.{js,ts,cjs,mjs}'],
   roots: [`<rootDir>/test`],
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/tmp/', '/test/'],
   testMatch: [
     '**/__tests__/**/*.+(ts|tsx|[cm]js|cjs|mjs)',
     '**/?(*.)+(spec|test).+(ts|tsx|[cm]js|cjs|mjs)',
-    '**/test/*.test.{ts,js,cjs,mjs}',
-    '!**/.deploy_git/**'
+    '**/test/*.test.{ts,js,cjs,mjs}'
   ],
-  // extensionsToTreatAsEsm: ['.ts'],
+  extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
@@ -54,7 +45,7 @@ const config: JestConfigWithTsJest = {
         tsconfig: path.join(__dirname, 'tsconfig.jest.json')
       }
     ],
-    '^.+\\.cjs$': [
+    '^.+\\.{cjs,js,mjs}$': [
       'babel-jest',
       {
         presets: [['@babel/preset-env', { targets: { node: 'current' } }]]

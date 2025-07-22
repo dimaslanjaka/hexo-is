@@ -101,15 +101,17 @@ function isTagHelper(this: TemplateLocals, tag: any) {
   return Boolean(this.page.tag);
 }
 
-export const current = isCurrentHelper;
-export const home = isHomeHelper;
-export const post = isPostHelper;
-export const page = isPageHelper;
-export const archive = isArchiveHelper;
-export const year = isYearHelper;
-export const month = isMonthHelper;
-export const category = isCategoryHelper;
-export const tag = isTagHelper;
+export {
+  isArchiveHelper as archive,
+  isCategoryHelper as category,
+  isCurrentHelper as current,
+  isHomeHelper as home,
+  isMonthHelper as month,
+  isPageHelper as page,
+  isPostHelper as post,
+  isTagHelper as tag,
+  isYearHelper as year
+};
 
 /**
  * Custom function
@@ -131,15 +133,15 @@ export default function internalIs(hexo: TemplateLocals | Hexo): HexoIs {
   };
   if (typeof hexo['page'] == 'undefined') return obj;
   return {
-    current: current.bind(hexo)(),
-    home: home.bind(hexo)(),
-    post: post.bind(hexo)(),
-    page: page.bind(hexo)(),
-    archive: archive.bind(hexo)(),
-    year: year.bind(hexo)(),
-    month: month.bind(hexo)(),
-    category: category.bind(hexo)(),
-    tag: tag.bind(hexo)()
+    current: isCurrentHelper.bind(hexo)(),
+    home: isHomeHelper.bind(hexo)(),
+    post: isPostHelper.bind(hexo)(),
+    page: isPageHelper.bind(hexo)(),
+    archive: isArchiveHelper.bind(hexo)(),
+    year: isYearHelper.bind(hexo)(),
+    month: isMonthHelper.bind(hexo)(),
+    category: isCategoryHelper.bind(hexo)(),
+    tag: isTagHelper.bind(hexo)()
   };
 }
 

@@ -50,7 +50,6 @@
   "code-runner.cwd": "${workspaceFolder}",
   "code-runner.executorMapByGlob": {
     "*.electron.js": "cross-env-shell NODE_ENV=development electron -r ts-node/register",
-    "*.mjs": "node --no-warnings=ExperimentalWarning",
     "*.py": "py -u",
     "*.test.{cjs,js,mjs,ts}": "npm test --",
     "*Test.php": "phpunit --verbose --debug --testdox --colors=always",
@@ -58,6 +57,7 @@
     "rollup.*.{js,cjs,mjs,ts}": "rollup -c"
   },
   "code-runner.executorMapByFileExtension": {
+    "*.mjs": "node --no-warnings=ExperimentalWarning",
     ".ts": "node --no-warnings=ExperimentalWarning --loader ts-node/esm"
   },
   "code-runner.ignoreSelection": true,

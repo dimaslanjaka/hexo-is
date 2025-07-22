@@ -4,6 +4,7 @@ import { TemplateLocals } from './types';
 type Page = Record<string, any>;
 
 function isCurrentHelper(this: TemplateLocals, postPath = '/', strict?: boolean): boolean {
+  if (typeof this.path !== 'string') return false;
   const currentPath = this.path.replace(/^[^/].*/, '/$&');
   if (strict) {
     if (postPath.endsWith('/')) postPath += 'index.html';

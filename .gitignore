@@ -6,3 +6,4 @@
 **/.yarn/*.gz
 **/.yarn/versions
 **/package.tgz
+.env

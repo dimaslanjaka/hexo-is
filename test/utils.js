@@ -34,6 +34,7 @@ export class TestLog {
   constructor(fileName) {
     this.fileName = (fileName || 'test-log').replace(/\.[^/.]+$/, '') + '.log';
     this.logPath = path.join(process.cwd(), 'tmp', 'output-shell', this.fileName);
+    fs.mkdirSync(path.dirname(this.logPath), { recursive: true });
   }
 
   /**

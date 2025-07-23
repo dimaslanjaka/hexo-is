@@ -28,12 +28,12 @@ jobs:
     env:
       NODE_OPTIONS: '--max_old_space_size=8192'
       YARN_ENABLE_IMMUTABLE_INSTALLS: false
-      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
           branch: monorepo
 
       - name: Set environment variables
@@ -78,7 +78,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x # Node.js version
-          token: ${{ secrets.ACCESS_TOKEN }}
+          token: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Enable corepack
         run: corepack enable

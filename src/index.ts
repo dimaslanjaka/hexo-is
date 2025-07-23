@@ -22,16 +22,16 @@ const log =
  * import hexoIs from 'hexo-is';
  * const hexo = this;
  * console.log(hexoIs(hexo)); // object or string
- * @param hexo
+ * @param hexoData
  * @returns
  */
-export const hexoIs = function (hexo: Hexo | HexoLocalsData | TemplateLocals) {
-  if (typeof hexo === 'undefined') return;
-  if (typeof hexo['page'] != 'undefined') return internalis(hexo as any);
-  if (typeof hexo['type'] != 'undefined') {
-    const ix = internalis(hexo as any);
-    if (typeof ix[hexo['type']] != 'undefined') ix[hexo['type']] = true;
-    return ix;
+export const hexoIs = function (hexoData: Hexo | HexoLocalsData | TemplateLocals) {
+  if (typeof hexoData === 'undefined') return;
+  if (typeof hexoData['page'] != 'undefined') return internalis(hexoData as any);
+  if (typeof hexoData['type'] != 'undefined') {
+    const lib = internalis(hexoData as any);
+    if (typeof lib[hexoData['type']] != 'undefined') lib[hexoData['type']] = true;
+    return lib;
   }
 };
 

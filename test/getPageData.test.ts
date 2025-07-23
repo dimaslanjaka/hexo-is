@@ -1,3 +1,4 @@
+import fs from 'fs';
 import Hexo from 'hexo';
 import path from 'path';
 import { modifyConfig } from './utils.js';
@@ -30,10 +31,25 @@ beforeAll(async () => {
 
 describe('getPageData', () => {
   it('returns page data with "is" and "title" properties for a valid post', () => {
+    const cwd = process.cwd();
+    console.log('CWD:', cwd);
+    console.log('baseSite:', baseSite);
+    try {
+      const postFiles = fs.readdirSync(path.join(baseSite, 'source', '_posts'));
+      console.log('Files in _posts:', postFiles);
+    } catch (e) {
+      console.log('Error reading _posts:', e);
+    }
     const posts = hexo.locals.get('posts');
-    console.log('posts:', posts);
+    const postCount = posts && posts.length !== undefined ? posts.length : posts.data ? posts.data.length : 0;
+    console.log('post count:', postCount);
     const page = posts.data ? posts.data[0] : posts[0];
-    console.log('page:', page);
+    if (page) {
+      console.log('page keys:', Object.keys(page));
+      if (page.title) console.log('page.title:', page.title);
+    } else {
+      console.log('page is undefined or null');
+    }
     const data = { page };
     const result = getPageData.call(hexo, data);
     console.log('getPageData result:', result);

@@ -1,6 +1,7 @@
 name: Cross-Platform Tests
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'src/**'

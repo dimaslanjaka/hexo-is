@@ -22,6 +22,7 @@
     "dist/"
   ],
   "scripts": {
+    "pretest": "npm run build",
     "test": "npx jest --runInBand --forceExit --detectOpenHandles --testTimeout=30000",
     "test:index": "node test/index.js",
     "build": "tsc && rollup -c",

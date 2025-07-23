@@ -94,6 +94,10 @@ jobs:
       - name: �🛠️ Build Workspace
         run: npm run build
 
+      - name: ⚡ Generate Hexo Test Site
+        run: npx hexo generate
+        working-directory: test/demo
+
       - name: 🧪 Run Test Suite
         run: npm test
 

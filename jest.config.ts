@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { defaults } from 'jest-config';
 import path from 'path';
 import type { JestConfigWithTsJest } from 'ts-jest';
 
@@ -8,9 +7,9 @@ import type { JestConfigWithTsJest } from 'ts-jest';
  * * how to run single test {@link https://stackoverflow.com/questions/28725955/how-do-i-test-a-single-file-using-jest}
  */
 const config: JestConfigWithTsJest = {
-  preset: 'ts-jest',
   testEnvironment: 'node',
-  moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts'],
+  moduleFileExtensions: ['js', 'ts', 'json', 'cjs', 'mjs'],
+  extensionsToTreatAsEsm: ['.ts'],
   verbose: true,
   cache: true,
   cacheDirectory: path.join(__dirname, 'tmp/jest'),
@@ -22,11 +21,11 @@ const config: JestConfigWithTsJest = {
     '**/?(*.)+(spec|test).+(ts|tsx|[cm]js|cjs|mjs)',
     '**/test/*.test.{ts,js,cjs,mjs}'
   ],
-  extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
     '^(\\.{1,2}/.*)\\.js$': '$1'
   },
   transform: {
+    // TypeScript files: handled by ts-jest, ESM support via tsconfig
     '^.+\\.(ts|tsx)$': [
       'ts-jest',
       {
@@ -45,7 +44,8 @@ const config: JestConfigWithTsJest = {
         tsconfig: path.join(__dirname, 'tsconfig.jest.json')
       }
     ],
-    '^.+\\.{cjs,js,mjs}$': [
+    // JS, CJS, MJS: handled by babel-jest for ESM/CommonJS interop
+    '^.+\\.(js|cjs|mjs)$': [
       'babel-jest',
       {
         presets: [['@babel/preset-env', { targets: { node: 'current' } }]]

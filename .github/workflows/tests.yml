@@ -16,6 +16,11 @@ jobs:
   test:
     name: Run Tests on ${{ matrix.os }} / Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
+    env:
+      NODE_OPTIONS: '--max_old_space_size=8192'
+      YARN_ENABLE_IMMUTABLE_INSTALLS: false
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
+      YARN_IGNORE_NODE: 1
     strategy:
       fail-fast: false
       matrix:
@@ -72,6 +77,9 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ matrix.node }}-${{ hashFiles('**/yarn.lock', 'test/**/*.ts', 'test/**/*.js', 'test/**/*.cjs', 'test/**/*.mjs') }}
           restore-keys: |
             ${{ runner.os }}-yarn-${{ matrix.node }}-
+
+      - name: 🧶 Set Yarn Version Stable
+        run: yarn set version stable
 
       - name: 📦 Install Node.js Dependencies
         run: yarn install

@@ -26,7 +26,7 @@
     "test:index": "node test/index.js",
     "build": "tsc && rollup -c",
     "clean": "npx rimraf dist && npm run build",
-    "postbuild": "node packer.js",
+    "postbuild": "node packer.cjs",
     "update": "npx npm-check-updates -u -x chalk",
     "pack": "node packer.cjs --yarn",
     "prepare": "husky"
@@ -52,7 +52,8 @@
     "hexo-log": "^4.1.0",
     "minimatch": "^10.0.3",
     "sbg-utility": "^2.0.8",
-    "upath": "^2.0.1"
+    "upath": "^2.0.1",
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",

@@ -19,25 +19,25 @@ const config = {
 
 jest.setTimeout(120000);
 
-beforeAll(async () => {
-  hexo = new Hexo(baseSite, { silent: true });
-  modifyConfig(config);
-  await hexo.init();
-  await hexo.call('clean');
-  await hexo.call('generate');
-  (global as any).hexo = hexo;
-  // Dynamically import sitemapModule after global hexo is set
-  getPageData = await import('../dist/index.js').then((m) => m.getPageData);
-});
-
-afterAll(() => {
-  // Only output the log contents if running on GitHub Actions CI
-  if (process.env.GITHUB_ACTIONS === 'true') {
-    console.log('\n--- getPageData test log ---\n' + log.read());
-  }
-});
-
 describe('getPageData', () => {
+  beforeAll(async () => {
+    hexo = new Hexo(baseSite, { silent: true });
+    modifyConfig(config);
+    await hexo.init();
+    await hexo.call('clean');
+    await hexo.call('generate');
+    (global as any).hexo = hexo;
+    // Dynamically import sitemapModule after global hexo is set
+    getPageData = await import('../dist/index.js').then((m) => m.getPageData);
+  });
+
+  afterAll(() => {
+    // Only output the log contents if running on GitHub Actions CI
+    if (process.env.GITHUB_ACTIONS === 'true') {
+      console.log('\n--- getPageData test log ---\n' + log.read());
+    }
+  });
+
   it('returns page data with "is" and "title" properties for a valid post', () => {
     log.write('CWD: ' + process.cwd(), true);
     log.write('baseSite: ' + baseSite);

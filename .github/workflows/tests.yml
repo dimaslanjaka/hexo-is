@@ -58,25 +58,35 @@ jobs:
 
       - name: ⬇️ Clone Hexo Site (hexo-seo branch)
         run: git clone --branch hexo-seo https://github.com/dimaslanjaka/site site
+      - name: Get Yarn cache folder
+        id: yarn-cache
+        run: echo "cacheFolder=$(yarn config get cacheFolder)" >> $GITHUB_ENV
 
-      - name: 📦 Cache npm dependencies
+      - name: 📦 Cache Yarn dependencies
         uses: actions/cache@v4
         with:
           path: |
+            ${{ env.cacheFolder }}
             **/node_modules
+            **/.yarn/cache
+            **/.yarn/unplugged
+            **/.yarn/build-state.yml
+            **/.yarn/install-state.gz
+            **/.pnp.*
             **/dist
             **/tmp
-          key: ${{ runner.os }}-npm-${{ matrix.node }}-${{ hashFiles('**/package-lock.json', '**/package.json', 'test/**/*.ts', 'test/**/*.js', 'test/**/*.cjs', 'test/**/*.mjs') }}
+          key: ${{ runner.os }}-yarn-${{ matrix.node }}-${{ hashFiles('**/yarn.lock', 'test/**/*.ts', 'test/**/*.js', 'test/**/*.cjs', 'test/**/*.mjs') }}
           restore-keys: |
-            ${{ runner.os }}-npm-${{ matrix.node }}-
+            ${{ runner.os }}-yarn-${{ matrix.node }}-
+
+      - name: 🧶 Set Yarn Version Stable
+        run: yarn set version stable
 
       - name: 📦 Install Node.js Dependencies
-        run: npm ci
+        run: yarn install
 
-      - name: �️ Run npm prepare (if exists)
-        run: |
-          if npm run | findstr /C:"prepare" >nul; then npm run prepare; fi
-        shell: bash
+      - name: � Run Yarn Prepare
+        run: yarn prepare
 
       - name: �🛠️ Build Workspace
         run: npm run build

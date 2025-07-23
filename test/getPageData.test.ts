@@ -1,8 +1,9 @@
 import fs from 'fs';
 import Hexo from 'hexo';
 import path from 'path';
-import { modifyConfig } from './utils.js';
+import { modifyConfig, TestLog } from './utils.js';
 
+const log = new TestLog('getPageData');
 const baseSite = path.join(__dirname, 'demo');
 let hexo: Hexo;
 let getPageData: (typeof import('../src/getPageData'))['getPageData'];
@@ -29,30 +30,36 @@ beforeAll(async () => {
   getPageData = await import('../dist/index.js').then((m) => m.getPageData);
 });
 
+afterAll(() => {
+  // Only output the log contents if running on GitHub Actions CI
+  if (process.env.GITHUB_ACTIONS === 'true') {
+    console.log('\n--- getPageData test log ---\n' + log.read());
+  }
+});
+
 describe('getPageData', () => {
   it('returns page data with "is" and "title" properties for a valid post', () => {
-    const cwd = process.cwd();
-    console.log('CWD:', cwd);
-    console.log('baseSite:', baseSite);
+    log.write('CWD: ' + process.cwd(), true);
+    log.write('baseSite: ' + baseSite);
     try {
       const postFiles = fs.readdirSync(path.join(baseSite, 'source', '_posts'));
-      console.log('Files in _posts:', postFiles);
+      log.write('Files in _posts: ' + JSON.stringify(postFiles));
     } catch (e) {
-      console.log('Error reading _posts:', e);
+      log.write('Error reading _posts: ' + e);
     }
     const posts = hexo.locals.get('posts');
     const postCount = posts && posts.length !== undefined ? posts.length : posts.data ? posts.data.length : 0;
-    console.log('post count:', postCount);
+    log.write('post count: ' + postCount);
     const page = posts.data ? posts.data[0] : posts[0];
     if (page) {
-      console.log('page keys:', Object.keys(page));
-      if (page.title) console.log('page.title:', page.title);
+      log.write('page keys: ' + JSON.stringify(Object.keys(page)));
+      if (page.title) log.write('page.title: ' + page.title);
     } else {
-      console.log('page is undefined or null');
+      log.write('page is undefined or null');
     }
     const data = { page };
     const result = getPageData.call(hexo, data);
-    console.log('getPageData result:', result);
+    log.write('getPageData result keys: ' + JSON.stringify(result ? Object.keys(result) : result));
     expect(result).toHaveProperty('is');
     expect(result).toHaveProperty('title');
     if (result && page && page.title) expect(result.title).toBe(page.title);

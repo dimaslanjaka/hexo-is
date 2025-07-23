@@ -23,3 +23,40 @@ export function modifyConfig(config) {
   const combined = deepmerge(parsedBaseConfig, parsedConfig, config);
   fs.writeFileSync(configPath, yaml.stringify(combined), 'utf8');
 }
+
+/**
+ * TestLog class for writing and reading log files, with support for custom file names.
+ */
+export class TestLog {
+  /**
+   * @param {string} [fileName] - Custom log file name. Defaults to 'test-log'.
+   */
+  constructor(fileName) {
+    this.fileName = (fileName || 'test-log').replace(/\.[^/.]+$/, '') + '.log';
+    this.logPath = path.join(process.cwd(), 'tmp', 'output-shell', this.fileName);
+  }
+
+  /**
+   * Write a message to the log file.
+   * @param {string} message - The message to write.
+   * @param {boolean} [reset=false] - Whether to reset the log file before writing.
+   */
+  write(message, reset = false) {
+    if (reset) {
+      fs.writeFileSync(this.logPath, message + '\n', 'utf8');
+    } else {
+      fs.appendFileSync(this.logPath, message + '\n', 'utf8');
+    }
+  }
+
+  /**
+   * Read the contents of the log file.
+   * @returns {string} The contents of the log file, or an empty string if not found.
+   */
+  read() {
+    if (fs.existsSync(this.logPath)) {
+      return fs.readFileSync(this.logPath, 'utf8');
+    }
+    return '';
+  }
+}

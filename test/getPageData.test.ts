@@ -24,6 +24,7 @@ describe('getPageData', () => {
     hexo = new Hexo(baseSite, { silent: true });
     modifyConfig(config);
     await hexo.init();
+    await hexo.load();
     await hexo.call('clean');
     await hexo.call('generate');
     (global as any).hexo = hexo;

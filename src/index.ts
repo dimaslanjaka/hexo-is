@@ -50,4 +50,5 @@ export function hexoIsDump(toDump: any, name = '') {
   log.log(`${pkg.name}: dump saved to: ${path.resolve(loc)}`);
 }
 
+export { getPageData } from './getPageData';
 export default hexoIs;

@@ -12,7 +12,7 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN npm install -g npm && npm install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-12.test.log 2>&1
@@ -29,7 +29,7 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN npm install -g npm && npm install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-14.test.log 2>&1
@@ -46,7 +46,7 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN npm install -g npm && npm install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-16.test.log 2>&1
@@ -62,7 +62,7 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN npm install -g npm && npm install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-18.test.log 2>&1
@@ -78,7 +78,8 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN curl -L -o .yarnrc.yml https://raw.githubusercontent.com/dimaslanjaka/nodejs-package-types/refs/heads/main/.yarnrc-template.yml
+RUN corepack enable && corepack prepare yarn@stable --activate && touch yarn.lock && yarn install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-20.test.log 2>&1
@@ -94,7 +95,8 @@ COPY test ./test
 COPY packer.cjs ./packer.cjs
 COPY tsconfig.json ./tsconfig.json
 COPY tsconfig.jest.json ./tsconfig.jest.json
-RUN npm install
+RUN curl -L -o .yarnrc.yml https://raw.githubusercontent.com/dimaslanjaka/nodejs-package-types/refs/heads/main/.yarnrc-template.yml
+RUN corepack enable && corepack prepare yarn@stable --activate && touch yarn.lock && yarn install
 RUN npm run build
 RUN mkdir -p tmp/logs
 CMD npm test > tmp/logs/node-22.test.log 2>&1

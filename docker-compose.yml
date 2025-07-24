@@ -16,28 +16,46 @@ services:
       context: .
       target: node12
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-12/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-12/tmp:/workspace/tmp
   node14:
     build:
       context: .
       target: node14
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-14/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-14/tmp:/workspace/tmp
   node16:
     build:
       context: .
       target: node16
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-16/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-16/tmp:/workspace/tmp
   node18:
     build:
       context: .
       target: node18
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-18/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-18/tmp:/workspace/tmp
   node20:
     build:
       context: .
       target: node20
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-20/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-20/tmp:/workspace/tmp
   node22:
     build:
       context: .
       target: node22
     working_dir: /workspace
+    volumes:
+      - ./tmp/docker-caches/node-22/node_modules:/workspace/node_modules
+      - ./tmp/docker-caches/node-22/tmp:/workspace/tmp

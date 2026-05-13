@@ -52,7 +52,7 @@
     "fs-extra": "^11.3.0",
     "hexo-log": "^4.1.0",
     "minimatch": "^10.0.3",
-    "sbg-utility": "^2.0.8",
+    "sbg-utility": "^2.0.11",
     "upath": "^2.0.1",
     "yaml": "^2.8.0"
   },
